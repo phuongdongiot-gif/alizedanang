@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Alize Đà Nẵng",
+    "slug": "alize-da-nang",
+    "description": "Dự án căn hộ nghỉ dưỡng cao cấp tại trung tâm thành phố biển Đà Nẵng, mang đến trải nghiệm sống thượng lưu.",
+    "content": "<h2>Giới thiệu dự án</h2><p>Alize Đà Nẵng là biểu tượng mới của nhịp sống hiện đại, tọa lạc tại vị trí vàng với tầm nhìn bao trọn bờ biển Mỹ Khê tuyệt đẹp. Với thiết kế tinh tế vươn tầm quốc tế, dự án hứa hẹn mang lại không gian sống đẳng cấp, tiện nghi và trọn vẹn.</p><h3>Vị trí đắc địa</h3><p>Tọa lạc trên trục đường chính huyết mạch, dễ dàng kết nối với các tiện ích xung quanh như sân bay, trung tâm thương mại và bãi biển.</p><h3>Tiện ích nổi bật</h3><ul><li>Hồ bơi vô cực ngắm toàn cảnh thành phố</li><li>Phòng gym, spa chuẩn 5 sao</li><li>Khu vui chơi trẻ em, nhà hàng sang trọng</li></ul>",
+    "price": "Từ 3.5 tỷ VNĐ / Căn",
+    "location": "Mỹ Khê, Đà Nẵng",
+    "lat": 16.0544,
+    "lng": 108.2022,
+    "thumbnail": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687931-cecebd802404?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+    ],
+    "created_at": "2024-03-01T00:00:00.000Z"
+  }
+]

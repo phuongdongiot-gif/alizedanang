@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "project_id": 1,
+    "question": "Dự án dự kiến bàn giao vào thời điểm nào?",
+    "answer": "Dự án Alize Đà Nẵng dự kiến bắt đầu bàn giao vào Quý 4 năm 2026."
+  },
+  {
+    "id": 2,
+    "project_id": 1,
+    "question": "Chủ đầu tư có hỗ trợ vay vốn ngân hàng không?",
+    "answer": "Có, chúng tôi hợp tác với các ngân hàng lớn hỗ trợ vay vốn lên đến 70% giá trị căn hộ với lãi suất ưu đãi trong 24 tháng đầu."
+  },
+  {
+    "id": 3,
+    "project_id": 1,
+    "question": "Pháp lý dự án đã hoàn thiện chưa?",
+    "answer": "Dự án đã có đầy đủ giấy phép xây dựng và quy hoạch 1/500 theo quy định của pháp luật."
+  }
+]
