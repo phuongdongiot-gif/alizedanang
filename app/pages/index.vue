@@ -9,6 +9,7 @@
           class="w-full h-full object-cover"
           placeholder
           format="webp"
+          preload
         />
         <div class="absolute inset-0 bg-gray-900/40"></div>
       </div>

@@ -46,6 +46,7 @@
           class="w-full h-full object-cover"
           placeholder
           format="webp"
+          preload
         />
       </div>
 

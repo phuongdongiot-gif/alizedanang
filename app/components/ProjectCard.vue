@@ -9,6 +9,7 @@
         height="450"
         placeholder
         format="webp"
+        loading="lazy"
       />
       <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full shadow-sm">
         Nổi bật

@@ -9,6 +9,7 @@
         height="300"
         placeholder
         format="webp"
+        loading="lazy"
       />
     </div>
     <div class="flex flex-col justify-center flex-1">
