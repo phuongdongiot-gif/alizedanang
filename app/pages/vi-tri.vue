@@ -8,6 +8,7 @@
         class="w-full h-full object-cover"
         placeholder
         format="webp"
+        preload
       />
       <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Vị trí Kim Cương</h1>

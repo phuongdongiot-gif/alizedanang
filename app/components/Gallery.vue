@@ -14,6 +14,7 @@
           class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           placeholder
           format="webp"
+          loading="lazy"
         />
         <div v-if="index === maxDisplay - 1 && hasMore" class="absolute inset-0 bg-black/60 flex items-center justify-center transition-colors group-hover:bg-black/70">
           <span class="text-white font-bold text-xl">+{{ images.length - maxDisplay }}</span>
