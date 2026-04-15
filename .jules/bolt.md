@@ -1,0 +1,3 @@
+## 2025-07-15 - Concurrent Data Fetching
+**Learning:** Sequential `await useFetch` calls in Vue components (especially pages) create a request waterfall that delays page load. Using `Promise.all` for independent fetches allows them to be fetched concurrently. Also, dependent fetches can use `useAsyncData` to fetch only when the dependency resolves, but using `await` on it still blocks; to truly prevent waterfall/blocking setup for non-critical dependent data, `await` should be omitted if Nuxt setup doesn't strictly need it.
+**Action:** Always check for consecutive `await useFetch` calls and convert them to `Promise.all` if they are independent.

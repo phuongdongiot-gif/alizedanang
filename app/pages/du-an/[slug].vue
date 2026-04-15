@@ -144,7 +144,14 @@ import { ref, computed } from 'vue'
 
 const route = useRoute()
 const { data: project, pending } = await useFetch(`/api/projects/${route.params.slug}`)
-const { data: faqs } = await useFetch(() => project.value ? `/api/faqs?project_id=${project.value.id}` : null)
+// Optimize: Use useAsyncData to fetch faqs only if project exists and prevent waterfall
+const { data: faqs } = await useAsyncData(
+  `faqs-${route.params.slug}`,
+  () => project.value ? $fetch(`/api/faqs?project_id=${project.value.id}`) : Promise.resolve(null),
+  {
+    watch: [project]
+  }
+)
 
 // Schema Org JSON-LD
 const schemaOrg = computed(() => {

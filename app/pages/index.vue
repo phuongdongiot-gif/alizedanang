@@ -85,8 +85,15 @@
 </template>
 
 <script setup>
-const { data: projects, pending } = await useFetch('/api/projects')
-const { data: posts, pending: postsPending } = await useFetch('/api/posts')
+// Optimize: Use Promise.all to fetch independent data concurrently,
+// preventing a request waterfall and reducing total load time.
+const [
+  { data: projects, pending },
+  { data: posts, pending: postsPending }
+] = await Promise.all([
+  useFetch('/api/projects'),
+  useFetch('/api/posts')
+])
 
 useHead({
   title: 'Trang chủ',
