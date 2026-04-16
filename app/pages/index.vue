@@ -85,8 +85,12 @@
 </template>
 
 <script setup>
-const { data: projects, pending } = await useFetch('/api/projects')
-const { data: posts, pending: postsPending } = await useFetch('/api/posts')
+// ⚡ Bolt: Fetching projects and posts concurrently to avoid waterfall requests.
+// This reduces the overall loading time from sum of both requests to the maximum of the two.
+const [{ data: projects, pending }, { data: posts, pending: postsPending }] = await Promise.all([
+  useFetch('/api/projects'),
+  useFetch('/api/posts')
+])
 
 useHead({
   title: 'Trang chủ',
