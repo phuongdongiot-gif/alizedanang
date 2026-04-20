@@ -1,15 +1,7 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Replace slow per-request fs.readFile and JSON.parse
+// with direct ES module import to cache data in memory at build time.
+import postsData from '../data/posts.json'
 
-export default defineEventHandler(async (event) => {
-  try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
-  } catch (error) {
-    throw createError({
-      statusCode: 500,
-      message: 'Failed to load posts'
-    })
-  }
+export default defineEventHandler((event) => {
+  return postsData
 })

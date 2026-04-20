@@ -1,0 +1,3 @@
+## 2025-04-20 - Fast JSON loading in API endpoints
+**Learning:** The backend API endpoints in Nuxt (e.g. `server/api/projects.ts`, `server/api/posts.ts`, `server/api/faqs.ts`) were previously using `fs.readFile` with JSON parsing for every incoming request. This causes unnecessary synchronous I/O overhead and object allocation per request, which can quickly bottleneck performance at scale.
+**Action:** Import static data directly from JSON files (e.g. `import data from '../data/data.json'`). Nuxt Nitro bundles JSON imports so the parsed object is available in memory natively, avoiding repeated parsing and file reading altogether.
