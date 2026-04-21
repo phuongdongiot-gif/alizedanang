@@ -1,12 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// Direct import caches JSON in memory and avoids disk I/O on every request.
+import posts from '../../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    const items = posts
     
     const post = items.find((i: any) => i.slug === slug)
     if (!post) {
