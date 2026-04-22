@@ -1,11 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Performance Optimization:
+// Import JSON directly to keep it in memory rather than reading from disk
+// and parsing on every request, saving I/O operations and CPU time.
+import projectsData from '../data/projects.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return projectsData
   } catch (error) {
     throw createError({
       statusCode: 500,

@@ -1,14 +1,13 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Performance Optimization:
+// Import JSON directly to keep it in memory rather than reading from disk
+// and parsing on every request, saving I/O operations and CPU time.
+import postsData from '../../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
     
-    const post = items.find((i: any) => i.slug === slug)
+    const post = postsData.find((i: any) => i.slug === slug)
     if (!post) {
       throw createError({ statusCode: 404, message: 'Post not found' })
     }
