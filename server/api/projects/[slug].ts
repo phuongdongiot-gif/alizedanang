@@ -1,13 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import items from '../../data/projects.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
     
+    // ⚡ Bolt: Return statically imported JSON data instead of reading from disk
+    // This caches data in memory, eliminating inefficient fs.readFile operations on every request
     const project = items.find((i: any) => i.slug === slug)
     if (!project) {
       throw createError({ statusCode: 404, message: 'Project not found' })
