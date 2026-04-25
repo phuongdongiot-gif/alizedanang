@@ -1,7 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Load JSON data statically via ES Module import
+// Why: Prevents disk I/O (fs.readFile) on every API request.
+// Impact: Data is cached in memory at startup, improving response times significantly and avoiding potential 500 errors if the disk is busy.
+import projectsData from '../data/projects.json'
+import postsData from '../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const baseUrl = 'https://alizedanang.vn'
   
   // Static routes
@@ -15,35 +18,21 @@ export default defineEventHandler(async (event) => {
     { url: '/lien-he', changefreq: 'monthly', priority: 0.5 },
   ]
   
-  try {
-    // Dynamic routes (Projects)
-    let dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    let data = await fs.readFile(dataPath, 'utf-8')
-    const projects = JSON.parse(data)
-    
-    projects.forEach((p: any) => {
-      routes.push({
-        url: `/du-an/${p.slug}`,
-        changefreq: 'weekly',
-        priority: 0.9
-      })
+  projectsData.forEach((p: any) => {
+    routes.push({
+      url: `/du-an/${p.slug}`,
+      changefreq: 'weekly',
+      priority: 0.9
     })
-    
-    // Dynamic routes (Posts)
-    dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    data = await fs.readFile(dataPath, 'utf-8')
-    const posts = JSON.parse(data)
-    
-    posts.forEach((p: any) => {
-      routes.push({
-        url: `/tin-tuc/${p.slug}`,
-        changefreq: 'weekly',
-        priority: 0.7
-      })
+  })
+
+  postsData.forEach((p: any) => {
+    routes.push({
+      url: `/tin-tuc/${p.slug}`,
+      changefreq: 'weekly',
+      priority: 0.7
     })
-  } catch (err) {
-    console.error('Error generating sitemap data:', err)
-  }
+  })
 
   event.node.res.setHeader('Content-Type', 'text/xml')
   

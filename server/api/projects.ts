@@ -1,15 +1,8 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Load JSON data statically via ES Module import
+// Why: Prevents disk I/O (fs.readFile) on every API request.
+// Impact: Data is cached in memory at startup, improving response times significantly and avoiding potential 500 errors if the disk is busy.
+import projectsData from '../data/projects.json'
 
-export default defineEventHandler(async (event) => {
-  try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
-  } catch (error) {
-    throw createError({
-      statusCode: 500,
-      message: 'Failed to load projects'
-    })
-  }
+export default defineEventHandler((event) => {
+  return projectsData
 })
