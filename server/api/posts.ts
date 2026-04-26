@@ -1,11 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// Optimized by Bolt: Import JSON directly to allow Nitro to cache data in memory
+// avoiding fs.readFile and JSON.parse on every request.
+import posts from '../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return posts
   } catch (error) {
     throw createError({
       statusCode: 500,
