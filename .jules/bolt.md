@@ -1,0 +1,3 @@
+## 2024-04-30 - Nuxt Nitro JSON Import Memory Caching
+**Learning:** When replacing `fs.readFile` and `JSON.parse` with direct ES module JSON imports (`import data from './data.json'`) in Nuxt Nitro to avoid disk I/O, the imported object is cached in memory. Any direct mutations to the imported object in API handlers will persist across future requests, unlike `JSON.parse` which provides a fresh clone per request.
+**Action:** Always ensure that subsequent operations on imported JSON data are non-mutating (like `.filter()`, `.find()`, or `.map()`) or explicitly deep clone the data before modifying it if mutation is necessary.
