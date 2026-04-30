@@ -1,12 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Import JSON directly to cache data in memory
+// This avoids expensive disk I/O (fs.readFile) on every API request.
+import posts from '../../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    const items = posts
     
     const post = items.find((i: any) => i.slug === slug)
     if (!post) {
