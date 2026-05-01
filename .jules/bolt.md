@@ -1,0 +1,3 @@
+## 2024-05-29 - Nuxt Nitro Static JSON Import Optimization
+**Learning:** In Nuxt/Nitro applications, any file in the `server/api/` directory is automatically mapped to a public endpoint. Repeatedly reading static files with `fs.readFile` and `JSON.parse` is an unnecessary synchronous-like blocking disk I/O on every request. Nuxt's Nitro server natively supports ES module imports of JSON files (`import data from '../data.json'`) without requiring import assertions, automatically bundling and caching the data in memory.
+**Action:** When working with static JSON data in Nuxt API routes, use ES module imports instead of dynamic filesystem reads to take advantage of automatic memory caching and bundle optimization. Avoid mutating these cached objects.
