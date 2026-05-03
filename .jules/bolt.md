@@ -1,0 +1,3 @@
+## 2024-05-23 - Nuxt Nitro File System Operations
+**Learning:** Using `fs.readFile` and `JSON.parse` with `process.cwd()` in Nuxt Nitro API routes for static JSON data is an anti-pattern. It incurs per-request I/O overhead and parsing cost. Furthermore, relying on `process.cwd()` often breaks in production build output because the directory structure changes. Direct ES module imports of JSON files are natively supported, automatically bundled, and cached in memory, providing significant performance and stability gains.
+**Action:** Always prefer static ES module imports for static JSON data in Nuxt Nitro routes over dynamic filesystem reads. Be mindful that imported objects are cached and mutations will persist across requests.
