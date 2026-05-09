@@ -1,12 +1,13 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import faqsData from '../data/faqs.json'
 
+// ⚡ Bolt: Importing JSON directly caches it in memory via Nuxt/Nitro and avoids slow fs operations
 export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event)
-    const dataPath = path.resolve(process.cwd(), 'server/data/faqs.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    let items = JSON.parse(data)
+
+    // Note: Since importing JSON caches it in memory, we shouldn't mutate it directly.
+    // In this case, `filter` creates a new array, so it is safe.
+    let items = faqsData
     
     if (query.project_id) {
       items = items.filter((i: any) => i.project_id === Number(query.project_id))
