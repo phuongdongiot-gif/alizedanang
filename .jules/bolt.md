@@ -1,0 +1,3 @@
+## 2024-05-24 - Nuxt/Nitro Data Caching
+**Learning:** Nuxt's Nitro server natively supports ES module imports for JSON files (`import data from '../data.json'`). This automatically bundles and caches the data in memory, avoiding slow repetitive `fs.readFile` and `JSON.parse` operations. However, this creates a singleton-like cached object in memory. Direct mutations (e.g. `data.push(...)`) will persist across future requests.
+**Action:** When replacing dynamic file reads with direct static JSON imports, ensure no direct mutations occur to the imported object. Use non-mutating array operations like `.filter` to avoid accidentally sharing mutated state between requests.
