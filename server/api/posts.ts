@@ -1,11 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// Optimization: Import JSON directly. Nuxt Nitro natively supports ES module imports of JSON files,
+// avoiding disk I/O and process.cwd() issues in production.
+import data from '../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return data
   } catch (error) {
     throw createError({
       statusCode: 500,

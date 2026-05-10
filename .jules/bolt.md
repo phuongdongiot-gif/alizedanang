@@ -1,0 +1,3 @@
+## 2026-05-10 - Nitro JSON Import Anti-Pattern
+**Learning:** Bypassing the native bundler to use dynamic `fs.readFile` and `JSON.parse` with `process.cwd()` in Nuxt Nitro API routes causes severe performance bottlenecks (disk I/O per request) and potential production resolution issues. Nitro natively supports direct ES module imports of static JSON files, caching them in memory efficiently.
+**Action:** Always prefer direct ES module imports (`import data from '../data.json'`) over dynamic `fs.readFile` for static JSON data in Nuxt/Nitro server APIs to leverage automatic bundling and memory caching.
