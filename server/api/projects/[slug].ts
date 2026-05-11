@@ -1,12 +1,12 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Use direct ES module import for static JSON data.
+// This allows Nuxt/Nitro to bundle and cache the data in memory,
+// avoiding expensive fs.readFile and JSON.parse operations on every request.
+import projectsData from '../../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    const items = projectsData
     
     const project = items.find((i: any) => i.slug === slug)
     if (!project) {
