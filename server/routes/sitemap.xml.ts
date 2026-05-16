@@ -1,5 +1,7 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Use direct ES module import to cache JSON data in memory
+// This avoids expensive synchronous-like fs.readFile operations on every request.
+import projectsData from '../data/projects.json'
+import postsData from '../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   const baseUrl = 'https://alizedanang.vn'
@@ -17,11 +19,7 @@ export default defineEventHandler(async (event) => {
   
   try {
     // Dynamic routes (Projects)
-    let dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    let data = await fs.readFile(dataPath, 'utf-8')
-    const projects = JSON.parse(data)
-    
-    projects.forEach((p: any) => {
+    projectsData.forEach((p: any) => {
       routes.push({
         url: `/du-an/${p.slug}`,
         changefreq: 'weekly',
@@ -30,11 +28,7 @@ export default defineEventHandler(async (event) => {
     })
     
     // Dynamic routes (Posts)
-    dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    data = await fs.readFile(dataPath, 'utf-8')
-    const posts = JSON.parse(data)
-    
-    posts.forEach((p: any) => {
+    postsData.forEach((p: any) => {
       routes.push({
         url: `/tin-tuc/${p.slug}`,
         changefreq: 'weekly',
