@@ -1,0 +1,3 @@
+## 2024-05-19 - ES module JSON imports vs fs.readFile in Nuxt Nitro
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files (e.g., `import data from '../data.json'`) which automatically bundles and caches the data in memory. This is significantly faster than using `fs.readFile` and `JSON.parse` on every request, and it avoids path resolution issues with `process.cwd()` in production deployments.
+**Action:** When working with static JSON data in Nuxt Nitro API routes, always use ES module imports to leverage the built-in caching and improve performance. Remember to avoid mutating the imported data directly, as it is cached in memory.
