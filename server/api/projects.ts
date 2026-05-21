@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt: ES module JSON import caches data in memory, avoiding fs reads per request
+import data from '../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return data
   } catch (error) {
     throw createError({
       statusCode: 500,
