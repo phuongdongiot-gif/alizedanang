@@ -1,12 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt: Optimize by directly importing JSON (caches in memory, avoids fs reads)
+import data from '../data/faqs.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event)
-    const dataPath = path.resolve(process.cwd(), 'server/data/faqs.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    let items = JSON.parse(data)
+    // Clone cached array to prevent state mutation across requests
+    let items = [...data]
     
     if (query.project_id) {
       items = items.filter((i: any) => i.project_id === Number(query.project_id))
