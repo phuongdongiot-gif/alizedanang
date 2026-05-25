@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt: Replaced dynamic fs.readFile with direct ES module JSON import for in-memory caching and bundler friendliness
+import data from '../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return data
   } catch (error) {
     throw createError({
       statusCode: 500,
