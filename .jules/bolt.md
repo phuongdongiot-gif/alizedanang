@@ -1,0 +1,3 @@
+## 2024-05-24 - Nuxt Nitro Static Data Optimization
+**Learning:** Nuxt Nitro (server engine) handles static JSON data imports directly without needing import assertions or dynamic fs.readFile. Using `fs.readFile` with `process.cwd()` is not just slow, it's an anti-pattern in serverless builds as the bundler won't know to include the files. Direct ESM imports implicitly tell the bundler to include the static assets and caches them in memory.
+**Action:** Always prefer direct static imports (`import data from '../data.json'`) over dynamic disk reads for static data in serverless/Nuxt environments to ensure both performance (memory cache) and deployment safety.
