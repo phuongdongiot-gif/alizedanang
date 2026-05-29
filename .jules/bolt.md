@@ -1,0 +1,3 @@
+## 2026-05-29 - [Nuxt Nitro File System IO Optimization]
+**Learning:** In Nuxt Nitro applications, using `fs.readFile` to load static JSON files on every request is an anti-pattern. Nitro natively supports and bundles ES module JSON imports. By utilizing `import data from '../data.json'`, the data is cached in memory during server startup, which provides a massive performance boost by eliminating repetitive file I/O operations and avoiding common `process.cwd()` path resolution bugs in production.
+**Action:** When working with static JSON data in Nuxt API routes, default to static ES imports rather than dynamic `fs` reads to leverage Nitro's built-in memory caching capabilities.
