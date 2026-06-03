@@ -1,0 +1,3 @@
+## 2024-05-15 - Nuxt/Nitro Direct JSON imports
+**Learning:** In Nuxt/Nitro, using `fs.readFile` with `process.cwd()` is inefficient as it reads from disk on every request and causes production bundler issues because `process.cwd()` often doesn't point to the original source. Direct static ES module imports (e.g., `import data from '../data.json'`) automatically cache the JSON in memory and correctly bundle the data without needing import assertions.
+**Action:** Always prefer direct ES module imports for static JSON files in Nuxt/Nitro projects, ensuring non-mutating methods are used since the imported object is cached globally.
