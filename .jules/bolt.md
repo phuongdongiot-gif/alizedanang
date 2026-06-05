@@ -1,0 +1,3 @@
+## 2026-06-05 - In-memory Caching with ES Modules in Nuxt Nitro
+**Learning:** Nuxt's Nitro server inherently supports ES module imports for static JSON files (e.g., `import data from '../data.json'`), caching the data directly in memory during server initialization instead of executing synchronous disk I/O (`fs.readFile`) and text-to-JSON parsing (`JSON.parse`) per request.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct JSON ES module imports across all relevant API endpoints serving static data to significantly improve throughput and reduce memory allocation overhead, making sure to avoid destructive data manipulation since imported objects are cached globally across requests.
