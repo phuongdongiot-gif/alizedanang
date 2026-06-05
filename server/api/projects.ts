@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import projects from '../data/projects.json'
 
-export default defineEventHandler(async (event) => {
+// ⚡ Bolt: Cache projects in memory by directly importing the JSON module, avoiding inefficient fs.readFile and JSON.parse on every request.
+export default defineEventHandler((event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return projects
   } catch (error) {
     throw createError({
       statusCode: 500,
