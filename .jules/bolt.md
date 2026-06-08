@@ -1,0 +1,3 @@
+## 2024-06-08 - Nitro JSON Memory Caching
+**Learning:** Nuxt Nitro natively supports direct ES module imports of JSON files (e.g., `import data from '../data.json'`) without import assertions. This approach automatically bundles and caches the JSON data in memory, avoiding redundant file-system operations via `fs.readFile` and parsing per request.
+**Action:** Use direct JSON imports over dynamic `fs.readFile` in Nuxt server endpoints to improve response times and avoid production environment bugs where `process.cwd()` doesn't map correctly to source directories. Remember to use non-mutating methods like `.filter()` if you need to transform the data, as the object is cached in memory and direct mutations would persist across requests.
