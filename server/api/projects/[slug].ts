@@ -1,12 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import projects from '../../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    // ⚡ Bolt: Using direct JSON import to leverage Nitro's built-in memory caching
+    // This avoids redundant fs.readFile and JSON.parse operations on every request
+    const items = projects
     
     const project = items.find((i: any) => i.slug === slug)
     if (!project) {
