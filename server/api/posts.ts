@@ -1,11 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import posts from '../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    // ⚡ Bolt Optimization: Using direct ES module import for static JSON
+    // This caches the data in memory for better performance and avoids
+    // bundler issues with process.cwd() in production environments.
+    return posts
   } catch (error) {
     throw createError({
       statusCode: 500,
