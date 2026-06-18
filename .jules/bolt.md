@@ -1,0 +1,3 @@
+## 2024-05-24 - Nuxt Nitro File Read Bottleneck
+**Learning:** Nuxt's Nitro server uses `process.cwd()` which can resolve unexpectedly in production builds depending on the hosting provider or deployment structure. Furthermore, using `fs.readFile` and `JSON.parse` to serve static JSON files on every API request causes unnecessary I/O overhead.
+**Action:** Instead of `fs.readFile`, use native ES module imports for JSON files (e.g., `import data from '../data.json'`). Nitro natively bundles these imports without needing import assertions, safely caching the data in memory for much faster, reliable responses. Remember to use non-mutating array methods (like `.filter()`) because the imported JSON object is cached and shared across all requests.
