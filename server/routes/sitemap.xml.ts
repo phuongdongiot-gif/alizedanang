@@ -1,5 +1,6 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// Optimization: Direct import caches JSON in memory and avoids blocking I/O
+import projects from '../data/projects.json'
+import posts from '../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   const baseUrl = 'https://alizedanang.vn'
@@ -15,35 +16,23 @@ export default defineEventHandler(async (event) => {
     { url: '/lien-he', changefreq: 'monthly', priority: 0.5 },
   ]
   
-  try {
-    // Dynamic routes (Projects)
-    let dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    let data = await fs.readFile(dataPath, 'utf-8')
-    const projects = JSON.parse(data)
-    
-    projects.forEach((p: any) => {
-      routes.push({
-        url: `/du-an/${p.slug}`,
-        changefreq: 'weekly',
-        priority: 0.9
-      })
+  // Dynamic routes (Projects)
+  projects.forEach((p: any) => {
+    routes.push({
+      url: `/du-an/${p.slug}`,
+      changefreq: 'weekly',
+      priority: 0.9
     })
-    
-    // Dynamic routes (Posts)
-    dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    data = await fs.readFile(dataPath, 'utf-8')
-    const posts = JSON.parse(data)
-    
-    posts.forEach((p: any) => {
-      routes.push({
-        url: `/tin-tuc/${p.slug}`,
-        changefreq: 'weekly',
-        priority: 0.7
-      })
+  })
+
+  // Dynamic routes (Posts)
+  posts.forEach((p: any) => {
+    routes.push({
+      url: `/tin-tuc/${p.slug}`,
+      changefreq: 'weekly',
+      priority: 0.7
     })
-  } catch (err) {
-    console.error('Error generating sitemap data:', err)
-  }
+  })
 
   event.node.res.setHeader('Content-Type', 'text/xml')
   
