@@ -1,11 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import items from '../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    // Optimization: Direct ES module import leverages Nitro's native JSON caching
+    // and bundler optimization, avoiding process.cwd() path issues in production
+    // and removing slow disk I/O per request.
+    return items
   } catch (error) {
     throw createError({
       statusCode: 500,
