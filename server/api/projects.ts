@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// Optimization: Directly import JSON to leverage Nitro's memory caching and avoid expensive fs.readFile and JSON.parse on every request.
+import items from '../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return items
   } catch (error) {
     throw createError({
       statusCode: 500,
