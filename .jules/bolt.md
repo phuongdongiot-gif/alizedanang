@@ -1,0 +1,3 @@
+## 2023-10-27 - Nuxt Nitro File System Bottlenecks
+**Learning:** In Nuxt Nitro applications, using `fs.readFile` coupled with `JSON.parse` inside API route handlers introduces unnecessary disk I/O and CPU overhead on every single request. Using dynamic `path.resolve(process.cwd(), ...)` is also inherently fragile in serverless environments, as the production execution context may not match the source folder layout.
+**Action:** Always prefer native ES module imports for static JSON (`import data from '../data.json'`). Nuxt's bundler resolves this at build time, securely loads the data exactly once, and retains it in memory. Be extremely cautious not to mutate this cached array across incoming requests (e.g., use `.filter()` over `.splice()`).
