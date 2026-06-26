@@ -1,0 +1,3 @@
+## 2025-06-26 - Static JSON Imports for Nuxt Nitro Caching
+**Learning:** Nuxt Nitro natively supports ES module JSON imports. Using dynamic `fs.readFile` and `JSON.parse` creates unnecessary I/O overhead per request. By using static JSON imports (`import data from '../data.json'`), Nitro automatically bundles the file and caches the JSON object in memory, significantly improving endpoint latency.
+**Action:** Always favor static ES module imports for internal JSON data sources in Nuxt applications instead of reading them dynamically from the filesystem, unless the data needs to reflect live file changes without a server restart.
