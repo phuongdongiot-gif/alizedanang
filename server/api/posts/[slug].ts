@@ -1,13 +1,12 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Using ES module import for JSON to leverage Nitro's in-memory caching
+// This eliminates synchronous file I/O blocking during requests and improves API response times.
+import items from '../../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
     
+    // .find() is non-mutating, so it's safe to use on the cached items object
     const post = items.find((i: any) => i.slug === slug)
     if (!post) {
       throw createError({ statusCode: 404, message: 'Post not found' })
