@@ -1,11 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Using ES module import for JSON to leverage Nitro's in-memory caching
+// This eliminates synchronous file I/O blocking during requests and improves API response times.
+import projectsData from '../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return projectsData
   } catch (error) {
     throw createError({
       statusCode: 500,
