@@ -1,12 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import data from '../data/faqs.json'
 
+// Optimization: Import JSON directly to cache data in memory and avoid inefficient fs.readFile on every request.
 export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event)
-    const dataPath = path.resolve(process.cwd(), 'server/data/faqs.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    let items = JSON.parse(data)
+    let items = data
     
     if (query.project_id) {
       items = items.filter((i: any) => i.project_id === Number(query.project_id))
