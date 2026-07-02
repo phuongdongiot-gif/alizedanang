@@ -1,12 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import items from '../../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    // ⚡ Bolt: Use direct JSON import to cache data in memory and avoid expensive filesystem reads per request
     
     const post = items.find((i: any) => i.slug === slug)
     if (!post) {
