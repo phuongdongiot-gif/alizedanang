@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt: Direct ES module import of static JSON instead of fs.readFile for faster startup, memory caching, and reliable bundling
+import projects from '../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return projects
   } catch (error) {
     throw createError({
       statusCode: 500,
