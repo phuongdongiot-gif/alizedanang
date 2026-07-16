@@ -1,0 +1,3 @@
+## 2024-07-16 - Static JSON ES Module Imports in Nuxt Nitro
+**Learning:** Dynamic `fs.readFile` and `JSON.parse` with `process.cwd()` in Nuxt Nitro APIs causes disk I/O bottlenecks and production bundling issues. Nitro natively supports ES module imports for JSON files, which automatically caches the data in memory and ensures inclusion in the final build.
+**Action:** Always prefer direct ES module imports for static JSON data in Nuxt/Nitro server APIs over dynamic filesystem reads. Remember to use non-mutating array methods (like `.filter()`) or assign the import to a new variable when data manipulation is needed, as the imported object is cached globally.
