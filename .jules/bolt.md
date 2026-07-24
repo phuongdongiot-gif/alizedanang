@@ -1,0 +1,3 @@
+## 2024-05-19 - [Optimize JSON Loading in Nuxt Nitro]
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files, automatically bundling and caching the data in memory. This is vastly more efficient and bundler-friendly than using dynamic `fs.readFile` with `process.cwd()`.
+**Action:** Always prefer ES module imports for static JSON data in Nuxt/Nitro over runtime file system reads.
