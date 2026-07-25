@@ -1,0 +1,3 @@
+## 2024-07-25 - Import JSON instead of reading from disk in Nuxt Nitro
+**Learning:** In Nuxt/Nitro, using `fs.readFile` and `JSON.parse` on static JSON files located in `server/data/` for every request is a major performance bottleneck (disk I/O + parsing overhead). Furthermore, `process.cwd()` can cause bugs in production builds. Nitro natively supports ES module imports of JSON files, which automatically bundles and caches the data in memory.
+**Action:** Always use static ES module imports for JSON data in Nitro endpoints instead of `fs.readFile`, ensuring to assign it to a mutable variable or use non-mutating methods if the data needs to be manipulated.
