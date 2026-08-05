@@ -1,0 +1,3 @@
+## 2024-05-18 - JSON Imports vs fs.readFile in Nuxt Nitro
+**Learning:** Using `fs.readFile` with `process.cwd()` to load static JSON files in Nuxt Nitro API routes creates significant I/O bottlenecks and introduces bugs in production where `process.cwd()` may not resolve to the source directory. Native ES module JSON imports (`import data from '../data.json'`) automatically bundle and cache the data in memory during the build.
+**Action:** When working in Nuxt Nitro applications, always use ES module imports for static JSON data instead of `fs.readFile`, ensuring that variables mapping to this data are carefully reassigned to prevent direct mutation of the cached object across requests.
