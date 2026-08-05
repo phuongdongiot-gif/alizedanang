@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import projectsData from '../data/projects.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    // ⚡ Bolt: Replaced fs.readFile with direct JSON import to cache data in memory and avoid I/O bottlenecks.
+    return projectsData
   } catch (error) {
     throw createError({
       statusCode: 500,
