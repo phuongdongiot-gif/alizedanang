@@ -1,11 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt: Direct JSON import caches data in memory, avoiding inefficient fs.readFile on every request.
+import posts from '../data/posts.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return posts
   } catch (error) {
     throw createError({
       statusCode: 500,
