@@ -1,0 +1,3 @@
+## 2024-05-15 - Replace fs.readFile with static JSON imports in Nuxt/Nitro
+**Learning:** In Nuxt/Nitro deployments, direct static JSON imports correctly cache the data in memory and prevent production bugs caused by process.cwd() mapping improperly to source directories.
+**Action:** Default to using ES module imports for static JSON files (e.g., `import data from '../data.json'`) rather than `fs.readFile` to maximize performance and bundler compatibility.
