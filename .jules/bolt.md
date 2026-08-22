@@ -1,0 +1,3 @@
+## 2023-10-26 - Static JSON Imports in Nuxt Nitro
+**Learning:** Using `fs.readFile` and `process.cwd()` to serve static JSON data in Nuxt/Nitro is a codebase-specific anti-pattern. It triggers unnecessary I/O on every request and creates fragile production builds where raw files may not be included. Nuxt's Nitro server natively supports ES module imports of JSON files, which automatically bundles and caches the data in memory.
+**Action:** Always replace dynamic `fs.readFile` with direct ES module imports for static JSON data. Since the imported object is shared and cached in memory across requests, strictly use non-mutating methods (like `.filter()`) and assign to mutable variables (like `let items = importedData`) when processing the data before returning it.
