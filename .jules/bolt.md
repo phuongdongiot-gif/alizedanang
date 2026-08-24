@@ -1,0 +1,3 @@
+## 2024-05-24 - Optimize JSON Loading in Nuxt Nitro
+**Learning:** Nuxt Nitro natively supports importing JSON files as ES modules, which caches the data in memory and ensures the file is bundled properly for production. Using `fs.readFile` with `process.cwd()` is slower and brittle in production builds.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct static JSON imports (`import data from '../data.json'`) in Nuxt API routes. Use non-mutating array methods (like `.filter()`) or re-assignable variables when modifying the data, since the imported data is a read-only constant cached across requests.
