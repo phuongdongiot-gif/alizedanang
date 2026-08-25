@@ -1,0 +1,3 @@
+## 2024-08-25 - Caching static JSON via ES imports in Nuxt/Nitro
+**Learning:** Using `fs.promises.readFile` with `process.cwd()` for static JSON data on every API request causes unnecessary I/O, parsing overhead, and risks path resolution bugs in Nuxt production builds. Nitro natively supports ES module imports for JSON files, which automatically bundles and caches the data in memory.
+**Action:** Always use direct ES module imports (e.g., `import data from '../data.json'`) instead of `fs.readFile` when reading static JSON data in Nuxt/Nitro API routes to improve performance and avoid production pathing issues.
