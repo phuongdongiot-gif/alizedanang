@@ -1,0 +1,3 @@
+## 2024-08-29 - Optimize Nuxt JSON data fetching
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files (e.g., `import data from '../data.json'`) without requiring import assertions, automatically bundling and caching the data in memory. This is more bundler-friendly than using dynamic `fs.readFile` with `process.cwd()`, as it prevents common production bugs where `process.cwd()` does not point to the original source directories.
+**Action:** When working with static JSON data in Nuxt/Nitro backends, prefer direct ES module imports over dynamic `fs.readFile` to leverage in-memory caching and ensure proper bundling in production, avoiding issues with missing files or incorrect paths.
