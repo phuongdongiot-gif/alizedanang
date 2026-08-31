@@ -1,0 +1,3 @@
+## 2025-01-23 - [Optimizing JSON Data Loading in Nuxt Nitro]
+**Learning:** Using `fs.readFile` with `process.cwd()` to load static JSON files in Nuxt Nitro is inefficient and fragile in production. It performs redundant disk I/O on every request and may fail if the working directory differs from the source.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct ES module imports (e.g., `import data from '../data/file.json'`). This bundles and caches the JSON data in memory at build time. When filtering or manipulating, assign the imported constant to a local variable to avoid mutation errors.
