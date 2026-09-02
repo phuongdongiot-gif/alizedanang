@@ -1,0 +1,3 @@
+## 2024-09-02 - Optimize static JSON data loading in Nuxt APIs
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files. Using `fs.readFile` with `process.cwd()` to load static JSON files on every request causes unnecessary disk I/O and parsing overhead, and can be fragile in production since `process.cwd()` might not point to the original source.
+**Action:** Use direct ES module imports (e.g., `import data from '../data.json'`) for static JSON data in Nuxt APIs to leverage in-memory caching and improve performance. When reassigning data, use a mutable variable assignment.
