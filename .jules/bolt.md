@@ -1,0 +1,3 @@
+## 2024-05-24 - Nuxt Nitro Static JSON Loading Pattern
+**Learning:** Using `fs.readFile` and `JSON.parse` with `process.cwd()` to read static JSON files on every request in Nuxt Nitro is an anti-pattern. It incurs significant disk I/O overhead and makes production builds fragile because raw static files aren't automatically included in Nitro deployments.
+**Action:** Always import static JSON files directly as ES modules (`import data from './data.json'`) in Nuxt. This native capability automatically bundles the files and caches the parsed JSON object in memory, bypassing disk reads and `process.cwd()` issues entirely.
