@@ -1,0 +1,3 @@
+## 2024-05-15 - [Nuxt Nitro In-Memory JSON Caching vs dynamic fs.readFile]
+**Learning:** In Nuxt Nitro deployments, utilizing direct static JSON imports is more bundler-friendly than using dynamic `fs.readFile` with `process.cwd()`. The direct imports are cached in memory and bundled into the build, preventing production bugs where `process.cwd()` doesn't point to original source directories and avoiding expensive IO/parsing on every request.
+**Action:** Replace `fs.readFile` with direct ES module JSON imports in Nuxt backend APIs, ensuring to assign to mutable variables when filtering to avoid mutating the read-only cached module.
