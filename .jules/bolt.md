@@ -1,0 +1,3 @@
+## 2024-05-18 - [Nuxt/Nitro JSON Import Optimization]
+**Learning:** In Nuxt/Nitro deployments, reading static JSON data using `fs.readFile` with `process.cwd()` causes inefficient disk I/O on every request and can cause production bugs because `process.cwd()` may not point to the original source directories.
+**Action:** Always utilize direct static JSON ES module imports (e.g., `import data from '../data.json'`) which Nitro natively supports. This caches data in memory, avoids repeated `JSON.parse`, and ensures bundler compatibility. Be careful to use non-mutating methods when manipulating the cached data.
