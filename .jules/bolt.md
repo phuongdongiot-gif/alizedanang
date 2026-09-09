@@ -1,0 +1,3 @@
+## 2024-10-24 - [Optimize Server-Side Static Data Loading]
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files, which automatically caches the data in memory. Utilizing `fs.readFile` with `process.cwd()` for static JSON data is not only inefficient (repetitive I/O parsing) but also brittle in production bundler environments where `process.cwd()` may not map to source files.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct ES module JSON imports in backend routes. Note that imported data is cached and should only be manipulated with non-mutating methods.
