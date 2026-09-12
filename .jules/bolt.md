@@ -1,0 +1,3 @@
+## 2024-09-12 - Replacing fs.readFile with ES Module JSON imports in Nuxt Nitro
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files. Using `fs.promises.readFile` to dynamically load static JSON files during requests is an anti-pattern as it incurs disk I/O and parsing overhead per request.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct JSON imports (e.g., `import data from '../data.json'`) to bundle and cache the data in memory for better performance. Always ensure non-mutating methods are used when filtering or altering the data since it's cached globally.
