@@ -1,7 +1,7 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import projects from '../data/projects.json'
+import posts from '../data/posts.json'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const baseUrl = 'https://alizedanang.vn'
   
   // Static routes
@@ -16,11 +16,8 @@ export default defineEventHandler(async (event) => {
   ]
   
   try {
+    // Optimization: Importing JSON directly caches it in memory instead of reading from disk and parsing on every request.
     // Dynamic routes (Projects)
-    let dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    let data = await fs.readFile(dataPath, 'utf-8')
-    const projects = JSON.parse(data)
-    
     projects.forEach((p: any) => {
       routes.push({
         url: `/du-an/${p.slug}`,
@@ -30,10 +27,6 @@ export default defineEventHandler(async (event) => {
     })
     
     // Dynamic routes (Posts)
-    dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    data = await fs.readFile(dataPath, 'utf-8')
-    const posts = JSON.parse(data)
-    
     posts.forEach((p: any) => {
       routes.push({
         url: `/tin-tuc/${p.slug}`,
