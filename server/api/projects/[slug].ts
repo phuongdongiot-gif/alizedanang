@@ -1,12 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// ⚡ Bolt Optimization: Use direct ES module import to natively cache data in memory
+// Bypasses fs.readFile disk I/O and JSON.parse overhead per request
+import items from '../../data/projects.json'
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
     
     const project = items.find((i: any) => i.slug === slug)
     if (!project) {
