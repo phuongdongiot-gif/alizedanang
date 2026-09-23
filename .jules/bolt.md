@@ -1,0 +1,3 @@
+## 2024-05-18 - Nuxt/Nitro JSON Import Bottleneck
+**Learning:** Using dynamic `fs.readFile` with `process.cwd()` in Nuxt Nitro routes is not only slower but also fragile, as raw static files are not automatically included in production builds unless explicitly configured, and `process.cwd()` may not point to the original source directories.
+**Action:** Use direct ES module imports for static JSON files (e.g., `import data from '../data.json'`) in Nuxt/Nitro applications. Nitro automatically bundles and caches the data in memory, improving performance and deployment reliability without requiring import assertions.
