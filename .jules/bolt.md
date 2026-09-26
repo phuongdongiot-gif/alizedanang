@@ -1,0 +1,3 @@
+## 2024-05-18 - Nuxt/Nitro static JSON imports
+**Learning:** Nuxt's Nitro server natively supports ES module imports of JSON files directly without import assertions, which automatically bundles and caches the data in memory. Using `fs.readFile` dynamically causes unnecessary disk I/O per request and is fragile in production since `process.cwd()` doesn't reliably map to the source directories and raw static files aren't included by default.
+**Action:** Replace `fs.readFile` and `JSON.parse` with direct ES module JSON imports in all Nuxt API routes where static JSON data is used to improve performance and production reliability.
