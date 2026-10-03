@@ -1,0 +1,3 @@
+## 2024-05-24 - [Nuxt Static JSON Import Caching]
+**Learning:** In Nuxt/Nitro production builds, dynamic `fs.readFile` with `process.cwd()` is fragile and slow as it performs disk I/O on every request. Directly importing static JSON files as ES modules caches them in memory, avoiding disk reads and resolving production path issues. However, since ES module imports are cached in memory, any mutations to the imported data will persist across requests.
+**Action:** Always import static JSON files as ES modules instead of using `fs.readFile`, use non-mutating methods when manipulating the cached data.
