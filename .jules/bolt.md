@@ -1,0 +1,3 @@
+## 2024-10-04 - Static JSON Imports in Nuxt/Nitro
+**Learning:** In Nuxt/Nitro deployments, utilizing direct static JSON imports is more bundler-friendly than using dynamic `fs.readFile` with `process.cwd()`, as it prevents common production bugs where `process.cwd()` does not point to the original source directories. Furthermore, raw static files are not automatically included unless explicitly configured. Utilizing ES module imports bypasses this fragility by bundling the static JSON data directly into the build.
+**Action:** Always import static JSON files as ES modules in Nuxt/Nitro instead of reading them via the filesystem at runtime to improve performance (in-memory caching) and ensure reliable bundling.
