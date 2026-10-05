@@ -1,0 +1,3 @@
+## 2024-10-05 - Direct JSON imports in Nuxt/Nitro
+**Learning:** In Nuxt/Nitro, using dynamic `fs.readFile(path.resolve(process.cwd(), ...))` on every request is inefficient and prone to production bugs because raw static files aren't bundled automatically.
+**Action:** Directly import static JSON data as ES modules (`import data from './data.json'`) to bundle them and cache them in memory, avoiding I/O overhead.
