@@ -1,12 +1,9 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import items from '../../data/projects.json' with { type: 'json' }
 
 export default defineEventHandler(async (event) => {
   try {
     const slug = getRouterParam(event, 'slug')
-    const dataPath = path.resolve(process.cwd(), 'server/data/projects.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    const items = JSON.parse(data)
+    // Optimization: Using ES module imports for static JSON caches it in memory, bypassing expensive fs.readFile per request.
     
     const project = items.find((i: any) => i.slug === slug)
     if (!project) {
