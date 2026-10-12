@@ -1,0 +1,3 @@
+## 2024-06-21 - Optimizing static JSON reads in Nuxt Nitro
+**Learning:** In Nuxt/Nitro, reading static JSON files with `fs.readFile` inside API routes is inefficient (blocking I/O per request) and fragile (files might not be bundled in production). ES module imports (`import data from "./data.json"`) resolve both by caching the data in memory and bundling it automatically. Since imported JSON is cached as a read-only constant, any filtering or manipulation must assign it to a new mutable variable or use non-mutating methods (like `.filter()`).
+**Action:** Use ES module imports instead of `fs.readFile` for static JSON data in Nuxt/Nitro to improve performance and reliability.
