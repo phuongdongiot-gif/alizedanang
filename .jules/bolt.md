@@ -1,0 +1,3 @@
+## 2024-10-16 - Static JSON API Optimization in Nuxt/Nitro
+**Learning:** Using `fs.readFile` for static JSON files on every API request in Nuxt/Nitro is an unnecessary I/O bottleneck. Also, raw static files aren't bundled in Nuxt production builds by default, making file reads fragile.
+**Action:** Use ES module imports (e.g., `import data from './data.json'`) instead. This bundles the JSON directly into the build output and caches it in memory as a constant at module initialization, eliminating filesystem reads on request. Note that since ES module imports are read-only constants, if the data needs reassignment (e.g., for filtering), it must be assigned to a mutable variable (`let items = data`).
