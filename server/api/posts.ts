@@ -1,11 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import postsData from '../data/posts.json'
+
+// Optimization: Cache static JSON data in memory via ES module import to avoid expensive disk I/O and JSON parsing on every request.
 
 export default defineEventHandler(async (event) => {
   try {
-    const dataPath = path.resolve(process.cwd(), 'server/data/posts.json')
-    const data = await fs.readFile(dataPath, 'utf-8')
-    return JSON.parse(data)
+    return postsData
   } catch (error) {
     throw createError({
       statusCode: 500,
