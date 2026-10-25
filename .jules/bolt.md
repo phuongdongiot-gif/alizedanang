@@ -1,0 +1,3 @@
+## 2024-05-14 - Replace fs.readFile with ES module imports in Nitro APIs
+**Learning:** In Nuxt/Nitro, using `fs.readFile` dynamically requires static JSON files to be explicitly configured to be included in the build output, and it causes unnecessary disk I/O at runtime. Importing JSON files directly as ES modules (`import data from "./data.json"`) allows the bundler to include them, caches them in memory, and avoids I/O operations entirely, making endpoints faster.
+**Action:** Always prefer ES module imports for static JSON data in Nuxt/Nitro backend APIs over `fs.readFile` to avoid disk I/O and build fragility.
